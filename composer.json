@@ -1,0 +1,44 @@
+{
+    "name": "saccharine/dashboard",
+    "description": "Laravel/Vue live-updating dashboard",
+    "license": "MIT",
+    "keywords": ["laravel", "vue", "dashboard"],
+    "type": "library",
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^12.0 || ^13.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Saccharine\\Dashboard\\DashboardServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Saccharine\\Dashboard\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Saccharine\\Dashboard\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Matthew Wegner",
+            "email": "mwegner@proton.me"
+        }
+    ],
+    "require-dev": {
+        "orchestra/testbench": "^11.1",
+        "pestphp/pest": "^4.7",
+        "pestphp/pest-plugin-laravel": "^4.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
