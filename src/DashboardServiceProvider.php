@@ -8,19 +8,19 @@ class DashboardServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        // 1. Load views for the demo route
+        // Load views for the demo route
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'saccharine-dashboard');
 
-        // 2. Publish compiled assets to host's public directory
+        // Publish compiled assets to host's public directory
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../dist' => public_path('vendor/saccharine-dashboard'),
             ], 'saccharine-dashboard-assets');
         }
 
-        // 3. Optional: Register standalone demo route
-        if (config('app.env') !== 'production') {
+        // Optional: Register standalone demo route
+        /* if (config('app.env') !== 'production') {
             $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        }
+        } */
     }
 }
