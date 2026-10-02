@@ -6,9 +6,9 @@ use Filament\Pages\Page;
 
 class OperationalTriageBoard extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-view-columns';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-view-columns';
     protected static ?string $navigationLabel = 'Triage Board';
-    protected static ?string $navigationGroup = 'Operations';
+    protected static \UnitEnum|string|null $navigationGroup = 'Operations';
     protected static ?string $slug = 'operations/triage';
 
     // Points to the package Blade view
