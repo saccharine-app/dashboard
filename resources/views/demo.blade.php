@@ -6,7 +6,7 @@
     <title>Saccharine Operational Triage Board</title>
     <link rel="stylesheet" href="{{ route('saccharine-dashboard.asset', ['file' => 'dashboard.css']) }}">
 </head>
-<body class="bg-slate-100 p-6">
+<body class="saccharine-dashboard-page">
     <!-- Root mount target -->
     <div id="saccharine-dashboard-root"></div>
 

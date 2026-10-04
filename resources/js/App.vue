@@ -1,8 +1,8 @@
 <template>
-  <div class="saccharine-dashboard">
-    <header class="saccharine-dashboard__header">
-      <h1>Operational Triage Board</h1>
-      <p class="saccharine-dashboard__subtitle">Live snapshot of operational workload.</p>
+  <div class="saccharine-dashboard flex flex-col gap-6">
+    <header class="flex flex-col gap-1">
+      <h1 class="text-xl font-bold leading-7 text-gray-950">Operational Triage Board</h1>
+      <p class="m-0 text-sm text-gray-500">Live snapshot of operational workload.</p>
     </header>
 
     <Dashboard

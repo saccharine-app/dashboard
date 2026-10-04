@@ -1,69 +1,79 @@
-h1 {
-    font-weight: bold;
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+/**
+ * Saccharine Dashboard stylesheet.
+ *
+ * Tailwind is compiled into this package's own bundle so host apps never need
+ * to run npm. Three deliberate choices:
+ *
+ * 1. Preflight is NOT imported. This bundle is injected into pages that already
+ *    ship their own reset (Filament v5 bundles Tailwind preflight itself), so a
+ *    second global reset would clobber the host's styling.
+ *
+ * 2. `source(none)` disables automatic content detection; we opt in explicitly
+ *    via @source below so the scanner never walks node_modules. Only the
+ *    classes actually used by our components end up in the output.
+ *
+ * 3. Colour tokens prefer Filament's runtime CSS custom properties
+ *    (--primary-600, --gray-500, --success-600, ...). Filament emits these into
+ *    a `:root` block from AssetManager::renderStyles(), so the dashboard
+ *    automatically adopts whatever palette the host panel configures. The
+ *    fallbacks keep the standalone demo page (which has no Filament) rendering
+ *    correctly with the dashboard's own palette.
+ */
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@source "../js/**/*.{vue,ts}";
+
+/*
+ * Filament's semantic colour names (primary, info, success, warning, danger)
+ * are NOT part of Tailwind's default palette, so `border-l-info-500` would emit
+ * no rule at all unless the colour is registered as a theme colour. Declaring
+ * them here is what makes those utilities exist in the first place.
+ */
+@theme {
+    --color-primary-600: var(--primary-600, #4f46e5);
+    --color-info-500: var(--info-500, #0ea5e9);
+    --color-success-500: var(--success-500, #10b981);
+    --color-warning-500: var(--warning-500, #f59e0b);
+    --color-danger-500: var(--danger-500, #f43f5e);
 }
 
+/*
+ * The grays DO exist in Tailwind's palette, so utilities like `text-gray-500`
+ * compile fine. Overriding them here -- scoped to the dashboard root rather
+ * than declared globally -- keeps the rest of the host page's gray utilities
+ * pointing at Filament's own palette. Tailwind emits utilities as
+ * `var(--color-*)` at use time and custom properties inherit, so this scope is
+ * enough to redirect them for our subtree only.
+ */
 .saccharine-dashboard {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    --color-gray-50: var(--gray-50, #f8fafc);
+    --color-gray-200: var(--gray-200, #e2e8f0);
+    --color-gray-500: var(--gray-500, #64748b);
+    --color-gray-950: var(--gray-950, #020617);
 }
 
-.saccharine-dashboard__header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.saccharine-dashboard__subtitle {
-    margin: 0;
-    color: #64748b;
-    font-size: 0.875rem;
-}
-
-.saccharine-dashboard__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-    gap: 1rem;
-}
-
-.saccharine-widget {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    padding: 1rem;
-    border: 1px solid #e2e8f0;
+/* Card surface shared by summary tiles and table panels, so the board reads as
+   one set rather than two. Colours come from the tokens above. */
+.saccharine-widget,
+.saccharine-table {
+    border: 1px solid var(--color-gray-200);
     border-radius: 0.75rem;
     background-color: #ffffff;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
-.saccharine-widget__title {
-    color: #64748b;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.saccharine-widget__value {
-    font-size: 1.75rem;
-    font-weight: 700;
-    line-height: 1;
-}
-
-.saccharine-widget--info {
-    border-color: #0ea5e9;
-}
-
-.saccharine-widget--warning {
-    border-color: #f59e0b;
-}
-
-.saccharine-widget--danger {
-    border-color: #f43f5e;
-}
-
-.saccharine-widget--success {
-    border-color: #10b981;
+/* Standalone demo page chrome. The host Filament page gets its layout from the
+   panel, but the demo view has no framework behind it, so the package supplies
+   its own page background instead of relying on utility classes that nothing
+   in that page defines. These reference Filament's raw tokens directly (not
+   --color-*) because this rule sits outside the .saccharine-dashboard scope. */
+.saccharine-dashboard-page {
+    margin: 0;
+    padding: 1.5rem;
+    background-color: var(--gray-100, #f1f5f9);
+    color: var(--gray-950, #020617);
+    font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
 }

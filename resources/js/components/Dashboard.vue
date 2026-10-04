@@ -1,5 +1,5 @@
 <template>
-  <section class="saccharine-dashboard__grid">
+  <section class="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-4">
     <SummaryWidget
       v-for="summaryWidget in summaryWidgets"
       :key="summaryWidget.id"
@@ -8,7 +8,7 @@
       :tone="summaryWidget.tone"
     />
   </section>
-  <section>
+  <section class="grid gap-4">
     <Widget v-for="widget in widgets"
       :key="widget.id"
       :title="widget.title"
@@ -20,7 +20,6 @@
 
 <script setup lang="ts">
 import SummaryWidget from './SummaryWidget.vue';
-import { ref } from 'vue';
 import Widget from './Widget.vue'
 import { useCaseStore } from '../stores/cases';
 

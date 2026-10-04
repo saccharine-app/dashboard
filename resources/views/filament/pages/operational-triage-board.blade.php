@@ -1,8 +1,8 @@
 <x-filament-panels::page>
-    <div 
-        id="saccharine-dashboard-root" 
+    <div
+        id="saccharine-dashboard-root"
         wire:ignore
-        class="w-full min-h-[600px] rounded-xl border border-slate-200 bg-slate-50 p-4"
+        class="w-full min-h-[600px]"
     >
         <!-- Fallback loader displayed until Vue mounts -->
         <div class="flex items-center justify-center p-12 text-slate-400">
