@@ -2,9 +2,11 @@
 
 namespace Saccharine\Dashboard;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
+use Saccharine\Dashboard\Http\Controllers\DashboardAssetController;
 
 class DashboardServiceProvider extends ServiceProvider
 {
@@ -13,17 +15,12 @@ class DashboardServiceProvider extends ServiceProvider
         // Load views for the demo route
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'saccharine-dashboard');
 
-        // Publish compiled assets to host's public directory
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../dist' => public_path('vendor/saccharine-dashboard'),
-            ], 'saccharine-dashboard-assets');
-        }
-
-        // Optional: Register standalone demo route
-        /* if (config('app.env') !== 'production') {
-            $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        } */
+        // Serve the compiled CSS/JS straight from the package so host apps
+        // never need to run `vendor:publish`. A controller (rather than a
+        // closure) keeps the route compatible with `php artisan route:cache`.
+        Route::get('saccharine-dashboard/{file}', DashboardAssetController::class)
+            ->where('file', 'dashboard\.(js|css)')
+            ->name('saccharine-dashboard.asset');
 
         // Register assets and page only if Filament is installed
         if (class_exists(\Filament\FilamentManager::class)) {
@@ -36,13 +33,13 @@ class DashboardServiceProvider extends ServiceProvider
         // Inject Vue styles & JS bundle exclusively on the dashboard page
         FilamentView::registerRenderHook(
             PanelsRenderHook::HEAD_END,
-            fn (): string => '<link rel="stylesheet" href="' . asset('vendor/saccharine-dashboard/dashboard.css') . '">',
+            fn (): string => '<link rel="stylesheet" href="' . route('saccharine-dashboard.asset', ['file' => 'dashboard.css']) . '">',
             scopes: \Saccharine\Dashboard\Filament\Pages\OperationalTriageBoard::class,
         );
 
         FilamentView::registerRenderHook(
             PanelsRenderHook::BODY_END,
-            fn (): string => '<script defer src="' . asset('vendor/saccharine-dashboard/dashboard.js') . '"></script>',
+            fn (): string => '<script defer src="' . route('saccharine-dashboard.asset', ['file' => 'dashboard.js']) . '"></script>',
             scopes: \Saccharine\Dashboard\Filament\Pages\OperationalTriageBoard::class,
         );
     }

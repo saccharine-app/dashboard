@@ -6,3 +6,5 @@ composer.lock
 /node_modules/
 .env
 public/build/
+/dist/
+*.tsbuildinfo

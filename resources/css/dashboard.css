@@ -1,3 +1,69 @@
 h1 {
-    font-size: bold;
+    font-weight: bold;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+.saccharine-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.saccharine-dashboard__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.saccharine-dashboard__subtitle {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.saccharine-dashboard__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: 1rem;
+}
+
+.saccharine-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    background-color: #ffffff;
+}
+
+.saccharine-widget__title {
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.saccharine-widget__value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.saccharine-widget--info {
+    border-color: #0ea5e9;
+}
+
+.saccharine-widget--warning {
+    border-color: #f59e0b;
+}
+
+.saccharine-widget--danger {
+    border-color: #f43f5e;
+}
+
+.saccharine-widget--success {
+    border-color: #10b981;
 }

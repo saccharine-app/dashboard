@@ -15,7 +15,7 @@ class OperationalTriageBoard extends Page
     protected string $view = 'saccharine-dashboard::filament.pages.operational-triage-board';
 
     // Allow full width to accommodate multi-column triage boards
-    protected ?string $maxContentWidth = 'full';
+    protected \Filament\Support\Enums\Width|string|null $maxContentWidth = 'full';
 
     public function getHeading(): string
     {
