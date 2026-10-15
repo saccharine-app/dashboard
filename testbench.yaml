@@ -1,0 +1,26 @@
+laravel: '@testbench'
+
+providers:
+  - Saccharine\Dashboard\DashboardServiceProvider
+  - Workbench\App\Providers\WorkbenchServiceProvider
+  - Workbench\App\Providers\FilamentPanelProvider
+
+workbench:
+  start: '/'
+  install: true
+  auth: true
+  discovers:
+    web: true
+    api: false
+    commands: true
+    components: false
+    factories: true
+    views: false
+  build:
+    - asset-publish
+  assets:
+    - laravel-assets
+  sync:
+    - from: storage
+      to: workbench/storage
+      reverse: true
