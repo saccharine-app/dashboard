@@ -20,8 +20,7 @@ export default defineConfig({
   },
   build: {
     // Built assets live in the package's public/ dir and are served by
-    // DashboardServiceProvider via the named "saccharine-dashboard.asset"
-    // route. This mirrors the sibling saccharine/bpmn-engine package.
+    // DashboardServiceProvider via the named "saccharine-dashboard.asset" route.
     outDir: 'public',
     emptyOutDir: true,
     cssCodeSplit: false, // Emit a single dashboard.css alongside dashboard.js
